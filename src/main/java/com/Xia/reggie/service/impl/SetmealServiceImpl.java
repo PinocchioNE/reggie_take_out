@@ -69,4 +69,25 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         setmealDishService.remove(queryWrapper1);
 
     }
+
+    /**
+     * 菜品停售
+     * @param status
+     * @param ids
+     */
+    @Override
+    public void updateSetmealStatusById(Integer status, List<Long> ids) {
+        LambdaQueryWrapper<Setmeal> lambdaQueryWrapper = new LambdaQueryWrapper();
+        lambdaQueryWrapper.in(ids != null,Setmeal::getId,ids);
+        List<Setmeal> list = this.list(lambdaQueryWrapper);
+
+        for(Setmeal setmeal:list){
+            if(setmeal!=null){
+                setmeal.setStatus(status);
+                this.updateById(setmeal);
+            }
+        }
+
+    }
+
 }
