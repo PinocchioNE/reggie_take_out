@@ -34,10 +34,11 @@ public class CommonController {
      */
     @PostMapping("/upload")
     public R<String> upload(MultipartFile file){
-        log.info(file.toString());
+        log.info("laile"+file.toString());
 
         //原始文件名
         String originalFilename = file.getOriginalFilename();
+        log.info("原始名"+originalFilename);
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
 
 
@@ -47,6 +48,7 @@ public class CommonController {
 
         //创建一个目录对象
         File dir = new File(basePath);
+        log.info(dir.toString());
         //判断当前目录是否存在
         if(!dir.exists()){
             //目录不存在，需要创建
@@ -72,7 +74,7 @@ public class CommonController {
         //输入流，通过输入流读取文件内容
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
-        //输出流，通过输出流将文件写回浏览器，在浏览器战士图片
+        //输出流，通过输出流将文件写回浏览器，在浏览器展示图片
             ServletOutputStream outputStream = response.getOutputStream();
 
             response.setContentType("image/jpeg");
@@ -82,7 +84,7 @@ public class CommonController {
             while ((len = fileInputStream.read(bytes)) != -1){
                 outputStream.write(bytes,0,len);
                 outputStream.flush();
-            }
+        }
 
             //关闭资源
             outputStream.close();

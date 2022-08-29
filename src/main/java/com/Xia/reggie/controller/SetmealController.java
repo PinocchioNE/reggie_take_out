@@ -72,22 +72,16 @@ public class SetmealController {
         //对象拷贝
         BeanUtils.copyProperties(pageInfo, dtoPage,"records");
         List<Setmeal> records = pageInfo.getRecords();
-        log.info("进循环前1");
         List<SetmealDto> list = records.stream().map((item)->{
-            log.info("进循环前2");
             SetmealDto setmealDto = new SetmealDto();
             //对象拷贝
             BeanUtils.copyProperties(item,setmealDto);
             //分类id
             Long categoryId = item.getCategoryId();
             //根据分类id查询分类对象
-            log.info("进循环前3");
             Category category = categoryService.getById(categoryId);
-            log.info("进循环前4");
             if(category!=null){
                 //分类名称
-                log.info("进循环了");
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 String categoryName = category.getName();
                 setmealDto.setCategoryName(categoryName);
             }

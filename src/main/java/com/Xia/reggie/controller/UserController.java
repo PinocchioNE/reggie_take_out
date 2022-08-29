@@ -32,7 +32,8 @@ public class UserController {
     private RedisTemplate redisTemplate;
 
     /**
-     * 发送手机短信验证码
+     *
+      * 发送手机短信验证码
      * @param user
      * @return
      */
